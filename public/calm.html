@@ -6,7 +6,7 @@
   <title>Banjo's Free Calm-Down Activity</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
 
   <style>
     :root {
@@ -14,6 +14,7 @@
       --meadow-green: #4A7C59;
       --sunset-gold:  #D4A853;
       --cloud-white:  #FAF8F3;
+      --warm-cream:   #F5F0E6;
       --body-font:    'DM Sans', sans-serif;
       --heading-font: 'Cormorant Garamond', serif;
       --max-w:        480px;
@@ -26,12 +27,12 @@
     }
 
     html, body {
-      height: 100%;
       background: var(--cloud-white);
       color: var(--alpine-navy);
       font-family: var(--body-font);
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
     }
 
     /* ── PARENTAL GATE ───────────────────────────────────────────── */
@@ -45,7 +46,7 @@
       align-items: center;
       justify-content: center;
       padding: 2rem;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      transition: opacity 0.7s ease, visibility 0.7s ease;
     }
 
     #gate.dismissed {
@@ -54,110 +55,100 @@
       pointer-events: none;
     }
 
-    .gate-card {
+    .gate-inner {
       width: 100%;
-      max-width: var(--max-w);
+      max-width: 400px;
       text-align: center;
     }
 
-    .gate-card .gate-eyebrow {
+    .gate-brand {
       font-family: var(--body-font);
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--sunset-gold);
-      margin-bottom: 1.25rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
     }
 
-    .gate-card h1 {
+    .gate-inner p.gate-prompt {
       font-family: var(--heading-font);
-      font-size: clamp(1.75rem, 6vw, 2.5rem);
-      font-weight: 600;
-      color: var(--cloud-white);
-      line-height: 1.2;
-      margin-bottom: 0.75rem;
-    }
-
-    .gate-card p {
-      font-size: 0.95rem;
-      color: rgba(250, 248, 243, 0.65);
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(250, 248, 243, 0.85);
+      line-height: 1.35;
       margin-bottom: 2rem;
     }
 
-    .gate-card label {
-      display: block;
-      font-size: 0.85rem;
-      color: rgba(250, 248, 243, 0.75);
-      margin-bottom: 0.5rem;
-      text-align: left;
-    }
-
-    .gate-card select {
+    #birth-year {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.8rem 1rem;
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(250, 248, 243, 0.2);
-      border-radius: 8px;
+      border: 1px solid rgba(250, 248, 243, 0.18);
+      border-radius: 10px;
       color: var(--cloud-white);
       font-family: var(--body-font);
       font-size: 1rem;
       appearance: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23FAF8F3' fill-opacity='.5' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23FAF8F3' fill-opacity='.4' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
       cursor: pointer;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
+      transition: border-color 0.2s ease;
     }
 
-    .gate-card select option {
+    #birth-year:focus {
+      outline: none;
+      border-color: rgba(250, 248, 243, 0.4);
+    }
+
+    #birth-year option {
       background: var(--alpine-navy);
       color: var(--cloud-white);
     }
 
     #gate-error {
-      font-size: 0.85rem;
+      font-size: 0.83rem;
       color: #e07a5f;
-      min-height: 1.25rem;
-      margin-bottom: 1.25rem;
-      text-align: left;
+      min-height: 1.2rem;
+      margin-bottom: 1rem;
+      text-align: center;
     }
 
     .gate-btn {
       width: 100%;
-      padding: 0.85rem 1.5rem;
+      padding: 0.9rem 1.5rem;
       background: var(--meadow-green);
       color: var(--cloud-white);
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-family: var(--body-font);
       font-size: 1rem;
       font-weight: 500;
+      letter-spacing: 0.01em;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
     }
 
-    .gate-btn:hover {
-      background: #3d6b4a;
-    }
+    .gate-btn:hover  { background: #3d6b4a; }
+    .gate-btn:active { transform: scale(0.98); }
 
-    .gate-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* ── MAIN CONTENT ────────────────────────────────────────────── */
+    /* ── CONTENT FADE-IN ─────────────────────────────────────────── */
 
     #content {
       opacity: 0;
-      transition: opacity 0.7s ease 0.15s;
+      transition: opacity 0.8s ease 0.2s;
     }
 
-    #content.visible {
-      opacity: 1;
-    }
+    #content.visible { opacity: 1; }
+
+    /* ── SHARED ──────────────────────────────────────────────────── */
 
     .section {
       width: 100%;
-      padding: 4rem 1.5rem;
+      padding: 4.5rem 1.5rem;
     }
 
     .inner {
@@ -171,67 +162,117 @@
       background: var(--cloud-white);
       text-align: center;
       padding-top: 5rem;
-      padding-bottom: 5rem;
+      padding-bottom: 0;
     }
 
-    #hero .eyebrow {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
+    .hero-label {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--meadow-green);
       margin-bottom: 1.25rem;
     }
 
-    #hero h2 {
+    #hero h1 {
       font-family: var(--heading-font);
-      font-size: clamp(2rem, 7vw, 3rem);
+      font-size: clamp(2.1rem, 7.5vw, 3.1rem);
       font-weight: 700;
       color: var(--alpine-navy);
-      line-height: 1.15;
+      line-height: 1.12;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    #hero .hero-sub {
+      font-size: 1rem;
+      color: rgba(27, 42, 74, 0.58);
+      max-width: 340px;
+      margin-inline: auto;
+      margin-bottom: 2.75rem;
+      line-height: 1.6;
+    }
+
+    /* Image placeholder */
+    .hero-image-wrap {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      aspect-ratio: 4 / 3;
+      background: var(--warm-cream);
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-image-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(27, 42, 74, 0.25);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .hero-image-placeholder svg {
+      opacity: 0.3;
+    }
+
+    /* ── FREE DOWNLOAD ───────────────────────────────────────────── */
+
+    #download {
+      background: var(--warm-cream);
+    }
+
+    #download h2 {
+      font-family: var(--heading-font);
+      font-size: clamp(1.55rem, 5.5vw, 2.1rem);
+      font-weight: 600;
+      color: var(--alpine-navy);
+      line-height: 1.2;
       margin-bottom: 1rem;
     }
 
-    #hero p {
-      font-size: 1.05rem;
+    #download .download-desc {
+      font-size: 0.97rem;
       color: rgba(27, 42, 74, 0.65);
-      max-width: 360px;
-      margin-inline: auto;
-    }
-
-    /* ── FORM ────────────────────────────────────────────────────── */
-
-    #form-section {
-      background: #f0ede6;
-    }
-
-    #form-section h3 {
-      font-family: var(--heading-font);
-      font-size: clamp(1.4rem, 5vw, 2rem);
-      font-weight: 600;
-      color: var(--alpine-navy);
-      margin-bottom: 1.75rem;
-      line-height: 1.2;
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
 
     .form-group {
-      margin-bottom: 1rem;
+      margin-bottom: 0.9rem;
     }
 
     .form-group label {
       display: block;
-      font-size: 0.82rem;
-      letter-spacing: 0.05em;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: rgba(27, 42, 74, 0.6);
+      color: rgba(27, 42, 74, 0.5);
       margin-bottom: 0.4rem;
     }
 
     .form-group input {
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.8rem 1rem;
       background: var(--cloud-white);
-      border: 1px solid rgba(27, 42, 74, 0.15);
-      border-radius: 8px;
+      border: 1px solid rgba(27, 42, 74, 0.12);
+      border-radius: 10px;
       font-family: var(--body-font);
       font-size: 1rem;
       color: var(--alpine-navy);
@@ -244,37 +285,34 @@
     }
 
     .form-group input::placeholder {
-      color: rgba(27, 42, 74, 0.3);
+      color: rgba(27, 42, 74, 0.28);
     }
 
     .submit-btn {
       width: 100%;
-      margin-top: 0.5rem;
-      padding: 0.9rem 1.5rem;
+      margin-top: 0.4rem;
+      padding: 0.95rem 1.5rem;
       background: var(--alpine-navy);
       color: var(--cloud-white);
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-family: var(--body-font);
       font-size: 1rem;
       font-weight: 500;
+      letter-spacing: 0.01em;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
     }
 
-    .submit-btn:hover {
-      background: #253d6b;
-    }
-
-    .submit-btn:active {
-      transform: scale(0.98);
-    }
+    .submit-btn:hover  { background: #253d6b; }
+    .submit-btn:active { transform: scale(0.98); }
 
     .form-note {
-      margin-top: 0.9rem;
-      font-size: 0.82rem;
-      color: rgba(27, 42, 74, 0.45);
+      margin-top: 0.85rem;
+      font-size: 0.8rem;
+      color: rgba(27, 42, 74, 0.38);
       text-align: center;
+      font-style: italic;
     }
 
     /* ── UPSELL ──────────────────────────────────────────────────── */
@@ -283,20 +321,20 @@
       background: var(--alpine-navy);
     }
 
-    #upsell h3 {
+    #upsell h2 {
       font-family: var(--heading-font);
-      font-size: clamp(1.4rem, 5vw, 2rem);
+      font-size: clamp(1.55rem, 5.5vw, 2.1rem);
       font-weight: 600;
       color: var(--cloud-white);
-      margin-bottom: 1rem;
       line-height: 1.2;
+      margin-bottom: 1rem;
     }
 
-    #upsell p {
+    #upsell .upsell-desc {
       font-size: 0.95rem;
-      color: rgba(250, 248, 243, 0.65);
+      color: rgba(250, 248, 243, 0.6);
+      line-height: 1.75;
       margin-bottom: 2rem;
-      line-height: 1.65;
     }
 
     .upsell-buttons {
@@ -307,28 +345,24 @@
 
     .upsell-btn {
       flex: 1;
-      padding: 0.85rem 1rem;
+      padding: 0.9rem 0.75rem;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       font-family: var(--body-font);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 500;
       text-align: center;
       text-decoration: none;
       cursor: pointer;
-      transition: filter 0.2s ease, transform 0.1s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      line-height: 1.3;
+      transition: filter 0.2s ease, transform 0.1s ease;
     }
 
-    .upsell-btn:hover {
-      filter: brightness(1.1);
-    }
-
-    .upsell-btn:active {
-      transform: scale(0.97);
-    }
+    .upsell-btn:hover  { filter: brightness(1.08); }
+    .upsell-btn:active { transform: scale(0.97); }
 
     .btn-green {
       background: var(--meadow-green);
@@ -343,26 +377,25 @@
     /* ── FOOTER ──────────────────────────────────────────────────── */
 
     footer {
-      padding: 2rem 1.5rem;
-      text-align: center;
-      font-size: 0.78rem;
-      color: rgba(27, 42, 74, 0.35);
       background: var(--cloud-white);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      font-size: 0.77rem;
+      color: rgba(27, 42, 74, 0.3);
+      letter-spacing: 0.02em;
     }
   </style>
 </head>
 <body>
 
-  <!-- PARENTAL GATE -->
-  <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-heading">
-    <div class="gate-card">
-      <p class="gate-eyebrow">Before you continue</p>
-      <h1 id="gate-heading">Are you a parent or caregiver?</h1>
-      <p>This page contains children's content. Please confirm your birth year to continue.</p>
+  <!-- ── PARENTAL GATE ── -->
+  <div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-prompt">
+    <div class="gate-inner">
+      <p class="gate-brand">Banjo the Wild Horse</p>
+      <p class="gate-prompt" id="gate-prompt">To continue, please confirm your birth year.</p>
 
-      <label for="birth-year">Your birth year</label>
-      <select id="birth-year" name="birth-year">
-        <option value="" disabled selected>Select year…</option>
+      <select id="birth-year" name="birth-year" aria-label="Birth year">
+        <option value="" disabled selected>Select your birth year…</option>
       </select>
 
       <p id="gate-error" aria-live="polite"></p>
@@ -371,22 +404,36 @@
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- ── MAIN CONTENT ── -->
   <div id="content" aria-hidden="true">
 
     <!-- HERO -->
     <section class="section" id="hero">
       <div class="inner">
-        <p class="eyebrow">Banjo the Bandicoot</p>
-        <h2>Banjo's Free Calm&#8209;Down&nbsp;Activity</h2>
-        <p>A bedtime breathing exercise from the Alpine Meadow</p>
+        <span class="hero-label">Banjo the Wild Horse</span>
+        <h1>A Free Calm&#8209;Down Activity&nbsp;for Bedtime.</h1>
+        <p class="hero-sub">A bedtime breathing exercise from the Alpine Meadow</p>
+      </div>
+      <div class="inner">
+        <div class="hero-image-wrap" id="hero-image">
+          <!-- Drop your Banjo render here as an <img> tag -->
+          <div class="hero-image-placeholder">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="8" width="40" height="32" rx="4" stroke="#1B2A4A" stroke-width="2"/>
+              <circle cx="17" cy="20" r="4" stroke="#1B2A4A" stroke-width="2"/>
+              <path d="M4 32l10-8 8 6 6-5 16 11" stroke="#1B2A4A" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            <span>Banjo illustration</span>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- EMAIL CAPTURE -->
-    <section class="section" id="form-section">
+    <!-- FREE DOWNLOAD -->
+    <section class="section" id="download">
       <div class="inner">
-        <h3>Get your free sheet</h3>
+        <h2>Get Your Free Breathing Sheet.</h2>
+        <p class="download-desc">A printable Mountain Breathing activity — trace the mountain path with your child while they breathe in and out. Takes 5 minutes, no prep needed.</p>
         <form action="#" method="POST">
           <div class="form-group">
             <label for="first-name">First name</label>
@@ -405,34 +452,35 @@
     <!-- UPSELL -->
     <section class="section" id="upsell">
       <div class="inner">
-        <h3>Want the full kit?</h3>
-        <p>The 20-page Bedtime Calm-Down Kit includes breathing cards, a feelings wheel, a sleep routine chart, and a parent guide — all illustrated in Banjo's alpine world.</p>
+        <h2>Want all four activities?</h2>
+        <p class="upsell-desc">The full 20-page Bedtime Calm-Down Kit includes 4 signature activities from The Wild Toolkit — Mountain Breaths, the Meadow Senses Walk, a Feelings Weather Map, and Grounding Stones — plus a Parent Cheat Sheet on the science of calm, a 14-night tracker, and a Wild Toolkit Certificate. Designed for ages 3–8.</p>
         <div class="upsell-buttons">
-          <a href="https://hotmart.com/PLACEHOLDER" class="upsell-btn btn-green" target="_blank" rel="noopener">Comprar por R$19,90</a>
-          <a href="https://gumroad.com/PLACEHOLDER" class="upsell-btn btn-gold" target="_blank" rel="noopener">Buy for $4</a>
+          <a href="https://hotmart.com/PLACEHOLDER" class="upsell-btn btn-green" target="_blank" rel="noopener noreferrer">Comprar por R$19,90</a>
+          <a href="https://gumroad.com/PLACEHOLDER" class="upsell-btn btn-gold" target="_blank" rel="noopener noreferrer">Buy for $4</a>
         </div>
       </div>
     </section>
 
+    <!-- FOOTER -->
     <footer>
-      &copy; 2026 Banjo the Bandicoot. All rights reserved.
+      &copy; 2026 Solumi&egrave;re Studio. All rights reserved.
     </footer>
 
   </div>
 
   <script>
-    // Populate birth year dropdown 1920–2025 descending
-    const select = document.getElementById('birth-year');
+    // Populate birth year dropdown 2025 → 1920
+    const sel = document.getElementById('birth-year');
     for (let y = 2025; y >= 1920; y--) {
-      const opt = document.createElement('option');
-      opt.value = y;
-      opt.textContent = y;
-      select.appendChild(opt);
+      const o = document.createElement('option');
+      o.value = y;
+      o.textContent = y;
+      sel.appendChild(o);
     }
 
     const gate    = document.getElementById('gate');
     const content = document.getElementById('content');
-    const error   = document.getElementById('gate-error');
+    const errEl   = document.getElementById('gate-error');
     const btn     = document.getElementById('gate-submit');
 
     function dismissGate() {
@@ -442,26 +490,20 @@
     }
 
     btn.addEventListener('click', () => {
-      const year = parseInt(select.value, 10);
-
+      const year = parseInt(sel.value, 10);
       if (!year) {
-        error.textContent = 'Please select your birth year.';
+        errEl.textContent = 'Please select your birth year.';
         return;
       }
-
       if (year >= 2008) {
-        error.textContent = 'This page is for parents and caregivers.';
+        errEl.textContent = 'This page is for parents and caregivers.';
         return;
       }
-
-      error.textContent = '';
+      errEl.textContent = '';
       dismissGate();
     });
 
-    // Allow keyboard Enter on the select to trigger submit
-    select.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') btn.click();
-    });
+    sel.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
   </script>
 
 </body>
