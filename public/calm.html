@@ -130,9 +130,9 @@ text-align: center;
 
 display: block;
 
-width: 100px;
+width: clamp(180px, 55vw, 260px);
 
-margin: 0 auto 2rem;
+margin: 0 auto 1.25rem;
 
 }
 
@@ -956,7 +956,7 @@ letter-spacing: 0.02em;
 
 const sel = document.getElementById('birth-year');
 
-for (let y = 1990; y >= 1920; y--) {
+for (let y = 2004; y >= 1920; y--) {
 
 const o = document.createElement('option');
 
