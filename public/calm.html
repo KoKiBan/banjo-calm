@@ -334,9 +334,9 @@ margin-inline: auto;
 
 display: block;
 
-width: 90px;
+width: clamp(180px, 45vw, 240px);
 
-margin: 0 auto 1.5rem;
+margin: 0 auto 0.5rem;
 
 }
 
@@ -372,7 +372,7 @@ text-transform: uppercase;
 
 color: var(--meadow-green);
 
-margin-bottom: 1.25rem;
+margin-bottom: 0.75rem;
 
 }
 
@@ -416,8 +416,6 @@ line-height: 1.6;
 
 
 
-/* Image placeholder */
-
 .hero-image-wrap {
 
 width: 100%;
@@ -426,11 +424,11 @@ max-width: var(--max-w);
 
 margin-inline: auto;
 
-aspect-ratio: 4 / 3;
+aspect-ratio: 1 / 1;
 
 background: var(--warm-cream);
 
-border-radius: 20px 20px 0 0;
+border-radius: 20px;
 
 overflow: hidden;
 
@@ -864,23 +862,7 @@ letter-spacing: 0.02em;
 
 <div class="hero-image-wrap" id="hero-image">
 
-<!-- Drop your Banjo render here as an <img> tag -->
-
-<div class="hero-image-placeholder">
-
-<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-
-<rect x="4" y="8" width="40" height="32" rx="4" stroke="#1B2A4A" stroke-width="2"/>
-
-<circle cx="17" cy="20" r="4" stroke="#1B2A4A" stroke-width="2"/>
-
-<path d="M4 32l10-8 8 6 6-5 16 11" stroke="#1B2A4A" stroke-width="2" stroke-linejoin="round"/>
-
-</svg>
-
-<span>Banjo illustration</span>
-
-</div>
+<img src="illustration.png" alt="Banjo the Wild Horse illustration" />
 
 </div>
 
