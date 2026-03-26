@@ -1020,7 +1020,7 @@ color: rgba(27, 42, 74, 0.65);
 
 <div class="checkbox-group">
 
-<input type="checkbox" id="tos" name="tos" required />
+<input type="checkbox" id="tos" name="tos" required onchange="var s=document.getElementById('submit-btn');if(s){s.disabled=!this.checked;}" />
 
 <label for="tos">I agree to the <a href="#" style="color:var(--meadow-green);">Terms of Service and Privacy Policy</a>.</label>
 
@@ -1164,33 +1164,6 @@ dismissGate();
 
 sel.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
 
-function initTosCheckbox() {
-
-var tosEl = document.getElementById('tos');
-
-var submitEl = document.getElementById('submit-btn');
-
-if (!tosEl || !submitEl) return;
-
-submitEl.disabled = !tosEl.checked;
-
-tosEl.addEventListener('change', function() {
-
-submitEl.disabled = !this.checked;
-
-});
-
-}
-
-if (document.readyState === 'loading') {
-
-document.addEventListener('DOMContentLoaded', initTosCheckbox);
-
-} else {
-
-initTosCheckbox();
-
-}
 
 </script>
 
