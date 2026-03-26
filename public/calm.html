@@ -1090,87 +1090,58 @@ color: rgba(27, 42, 74, 0.65);
 
 <script>
 
-// Populate birth year dropdown 2026 → 1920, no default
+document.addEventListener('DOMContentLoaded', function() {
 
-const sel = document.getElementById('birth-year');
+  // ── BIRTH YEAR DROPDOWN ──
+  const sel = document.getElementById('birth-year');
+  for (let y = 2026; y >= 1920; y--) {
+    const o = document.createElement('option');
+    o.value = y;
+    o.textContent = y;
+    sel.appendChild(o);
+  }
 
-for (let y = 2026; y >= 1920; y--) {
+  // ── GATE LOGIC ──
+  const gate = document.getElementById('gate');
+  const content = document.getElementById('content');
+  const errEl = document.getElementById('gate-error');
+  const gateBtn = document.getElementById('gate-submit');
 
-const o = document.createElement('option');
+  function dismissGate() {
+    gate.classList.add('dismissed');
+    content.removeAttribute('aria-hidden');
+    content.classList.add('visible');
+    document.body.style.overflow = '';
+    window.scrollTo(0, 0);
+  }
 
-o.value = y;
+  gateBtn.addEventListener('click', function() {
+    const year = parseInt(sel.value, 10);
+    if (!year) {
+      errEl.textContent = 'Please select your birth year.';
+      return;
+    }
+    if (year >= 2009) {
+      errEl.textContent = 'Sorry! This area is for grown-ups only.';
+      return;
+    }
+    errEl.textContent = '';
+    dismissGate();
+  });
 
-o.textContent = y;
+  sel.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') gateBtn.click();
+  });
 
-sel.appendChild(o);
+  // ── CHECKBOX / SUBMIT BUTTON ──
+  const tosCheckbox = document.getElementById('tos');
+  const submitBtn = document.getElementById('submit-btn');
 
-}
+  submitBtn.disabled = true;
 
-
-
-const gate = document.getElementById('gate');
-
-const content = document.getElementById('content');
-
-const errEl = document.getElementById('gate-error');
-
-const btn = document.getElementById('gate-submit');
-
-
-
-function dismissGate() {
-
-gate.classList.add('dismissed');
-
-content.removeAttribute('aria-hidden');
-
-content.classList.add('visible');
-
-document.body.style.overflow = '';
-
-window.scrollTo(0, 0);
-
-}
-
-
-
-btn.addEventListener('click', () => {
-
-const year = parseInt(sel.value, 10);
-
-if (!year) {
-
-errEl.textContent = 'Please select your birth year.';
-
-return;
-
-}
-
-if (year >= 2009) {
-
-errEl.textContent = 'Sorry! This area is for grown-ups only.';
-
-return;
-
-}
-
-errEl.textContent = '';
-
-dismissGate();
-
-});
-
-
-
-sel.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
-
-const tosCheckbox = document.getElementById('tos');
-
-const submitBtn = document.getElementById('submit-btn');
-
-tosCheckbox.addEventListener('change', function() {
-
-submitBtn.disabled = !this.checked;
+  tosCheckbox.addEventListener('change', function() {
+    submitBtn.disabled = !this.checked;
+  });
 
 });
 
