@@ -1030,7 +1030,7 @@ color: rgba(27, 42, 74, 0.65);
 
 <input type="checkbox" id="marketing" name="marketing" />
 
-<label for="marketing" style="font-family:'Lato',sans-serif;">Yes! Add me to Banjo's VIP Herd to receive exclusive free tools, new episodes, and early access to adventures.</label>
+<label for="marketing" style="font-family:'Lato',sans-serif;font-size:11pt;color:#1B2A4A;">Yes! I want a calmer home. Add me to Banjo's VIP Herd for new episodes and exclusive free tools for the family.</label>
 
 </div>
 
@@ -1164,15 +1164,33 @@ dismissGate();
 
 sel.addEventListener('keydown', e => { if (e.key === 'Enter') btn.click(); });
 
-const tos = document.getElementById('tos');
+function initTosCheckbox() {
 
-const submitBtn = document.getElementById('submit-btn');
+var tosEl = document.getElementById('tos');
 
-tos.addEventListener('change', () => {
+var submitEl = document.getElementById('submit-btn');
 
-submitBtn.disabled = !tos.checked;
+if (!tosEl || !submitEl) return;
+
+submitEl.disabled = !tosEl.checked;
+
+tosEl.addEventListener('change', function() {
+
+submitEl.disabled = !this.checked;
 
 });
+
+}
+
+if (document.readyState === 'loading') {
+
+document.addEventListener('DOMContentLoaded', initTosCheckbox);
+
+} else {
+
+initTosCheckbox();
+
+}
 
 </script>
 
