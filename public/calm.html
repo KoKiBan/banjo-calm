@@ -136,6 +136,24 @@ margin: 0 auto 1.25rem;
 
 }
 
+.gate-compliance {
+
+font-family: var(--body-font);
+
+font-size: 0.72rem;
+
+font-weight: 500;
+
+letter-spacing: 0.2em;
+
+text-transform: uppercase;
+
+color: var(--sunset-gold);
+
+margin-bottom: 0.6rem;
+
+}
+
 .gate-brand {
 
 font-family: var(--body-font);
@@ -878,12 +896,15 @@ letter-spacing: 0.02em;
 
 <p class="gate-brand">Banjo the Wild Horse</p>
 
+<p class="gate-compliance">For Grown-Ups Only</p>
+
 <p class="gate-prompt" id="gate-prompt">To continue, please confirm your birth year.</p>
 
 
 
 <select id="birth-year" name="birth-year" aria-label="Birth year">
 
+<option value="" disabled selected>Select Year</option>
 
 </select>
 
@@ -1029,17 +1050,15 @@ letter-spacing: 0.02em;
 
 <script>
 
-// Populate birth year dropdown 2007 → 1940, default 1990
+// Populate birth year dropdown 2026 → 1920, no default
 
 const sel = document.getElementById('birth-year');
 
-for (let y = 2007; y >= 1940; y--) {
+for (let y = 2026; y >= 1920; y--) {
 
 const o = document.createElement('option');
 
 o.value = y;
-
-if (y === 1990) o.selected = true;
 
 o.textContent = y;
 
@@ -1087,9 +1106,9 @@ return;
 
 }
 
-if (year >= 2008) {
+if (year >= 2009) {
 
-errEl.textContent = 'This page is for parents and caregivers.';
+errEl.textContent = 'Sorry! This area is for grown-ups only.';
 
 return;
 
