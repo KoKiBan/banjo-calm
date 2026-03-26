@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Banjo's Free Calm-Down Activity</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500&family=Lato:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+
+
+
+<style>
+
+:root {
+
+--alpine-navy: #1B2A4A;
+
+--meadow-green: #4A7C59;
+
+--sunset-gold: #D4A853;
+
+--cloud-white: #FAF8F3;
+
+--warm-cream: #F5F0E6;
+
+--body-font: 'DM Sans', sans-serif;
+
+--heading-font: 'Cormorant Garamond', serif;
+
+--max-w: 480px;
+
+}
+
+
+
+*, *::before, *::after {
+
+box-sizing: border-box;
+
+margin: 0;
+
+padding: 0;
+
+}
+
+
+
+html, body {
+
+background: var(--cloud-white);
+
+color: var(--alpine-navy);
+
+font-family: var(--body-font);
+
+font-size: 16px;
+
+line-height: 1.65;
+
+-webkit-font-smoothing: antialiased;
+
+}
+
+
+
+/* ── PARENTAL GATE ───────────────────────────────────────────── */
+
+
+
+#gate {
+
+position: fixed;
+
+inset: 0;
+
+z-index: 99999;
+
+background: #1B2A4A;
+
+overflow-y: auto;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+padding: 2rem;
+
+transition: opacity 0.7s ease, visibility 0.7s ease;
+
+}
+
+
+
+#gate.dismissed {
+
+opacity: 0;
+
+visibility: hidden;
+
+pointer-events: none;
+
+}
+
+
+
+.gate-inner {
+
+width: 100%;
+
+max-width: 400px;
+
+text-align: center;
+
+}
+
+
+
+.gate-logo {
+
+display: block;
+
+width: clamp(180px, 55vw, 260px);
+
+margin: 0 auto 1.25rem;
+
+}
+
+.gate-compliance {
+
+font-family: var(--body-font);
+
+font-size: 0.72rem;
+
+font-weight: 500;
+
+letter-spacing: 0.2em;
+
+text-transform: uppercase;
+
+color: var(--sunset-gold);
+
+margin-bottom: 0.6rem;
+
+}
+
+.gate-brand {
+
+font-family: var(--body-font);
+
+font-size: 0.7rem;
+
+letter-spacing: 0.18em;
+
+text-transform: uppercase;
+
+color: var(--sunset-gold);
+
+margin-bottom: 2.5rem;
+
+opacity: 0.9;
+
+}
+
+
+
+.gate-inner p.gate-prompt {
+
+font-family: var(--heading-font);
+
+font-size: clamp(1.3rem, 5vw, 1.7rem);
+
+font-weight: 400;
+
+font-style: italic;
+
+color: rgba(250, 248, 243, 0.85);
+
+line-height: 1.35;
+
+margin-bottom: 2rem;
+
+}
+
+
+
+#birth-year {
+
+width: 100%;
+
+padding: 0.8rem 1rem;
+
+background: rgba(255, 255, 255, 0.06);
+
+border: 1px solid rgba(250, 248, 243, 0.18);
+
+border-radius: 10px;
+
+color: var(--cloud-white);
+
+font-family: var(--body-font);
+
+font-size: 1rem;
+
+appearance: none;
+
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23FAF8F3' fill-opacity='.4' d='M5 6L0 0h10z'/%3E%3C/svg%3E");
+
+background-repeat: no-repeat;
+
+background-position: right 1rem center;
+
+cursor: pointer;
+
+margin-bottom: 0.65rem;
+
+transition: border-color 0.2s ease;
+
+}
+
+
+
+#birth-year:focus {
+
+outline: none;
+
+border-color: rgba(250, 248, 243, 0.4);
+
+}
+
+
+
+#birth-year option {
+
+background: var(--alpine-navy);
+
+color: var(--cloud-white);
+
+}
+
+
+
+#gate-error {
+
+font-size: 0.83rem;
+
+color: #e07a5f;
+
+min-height: 1.2rem;
+
+margin-bottom: 1rem;
+
+text-align: center;
+
+}
+
+
+
+.gate-btn {
+
+width: 100%;
+
+padding: 0.9rem 1.5rem;
+
+background: var(--meadow-green);
+
+color: var(--cloud-white);
+
+border: none;
+
+border-radius: 10px;
+
+font-family: var(--body-font);
+
+font-size: 1rem;
+
+font-weight: 500;
+
+letter-spacing: 0.01em;
+
+cursor: pointer;
+
+transition: background 0.2s ease, transform 0.1s ease;
+
+}
+
+
+
+.gate-btn:hover { background: #3d6b4a; }
+
+.gate-btn:active { transform: scale(0.98); }
+
+
+
+/* ── CONTENT FADE-IN ─────────────────────────────────────────── */
+
+
+
+#content {
+
+opacity: 0;
+
+transition: opacity 0.8s ease 0.2s;
+
+}
+
+
+
+#content.visible {
+
+opacity: 1;
+
+}
+
+
+
+/* ── SHARED ──────────────────────────────────────────────────── */
+
+
+
+.section {
+
+width: 100%;
+
+padding: 4.5rem 1.5rem;
+
+}
+
+
+
+.inner {
+
+max-width: var(--max-w);
+
+margin-inline: auto;
+
+}
+
+
+
+.hero-logo {
+
+display: block;
+
+width: clamp(220px, 65vw, 320px);
+
+margin: 0 auto 0.4rem;
+
+}
+
+/* ── HERO ────────────────────────────────────────────────────── */
+
+
+
+#hero {
+
+background: var(--cloud-white);
+
+text-align: center;
+
+padding-top: 5rem;
+
+padding-bottom: 0;
+
+}
+
+
+
+.hero-label {
+
+display: inline-block;
+
+font-size: 0.68rem;
+
+font-weight: 500;
+
+letter-spacing: 0.2em;
+
+text-transform: uppercase;
+
+color: var(--meadow-green);
+
+margin-bottom: 0.75rem;
+
+}
+
+
+
+#hero h1 {
+
+font-family: var(--heading-font);
+
+font-size: clamp(2.1rem, 7.5vw, 3.1rem);
+
+font-weight: 700;
+
+color: var(--alpine-navy);
+
+line-height: 1.12;
+
+margin-bottom: 1rem;
+
+letter-spacing: -0.01em;
+
+}
+
+
+
+#hero .hero-sub {
+
+font-size: 1rem;
+
+color: rgba(27, 42, 74, 0.58);
+
+max-width: 340px;
+
+margin-inline: auto;
+
+margin-bottom: 2.75rem;
+
+line-height: 1.6;
+
+}
+
+
+
+.hero-image-wrap {
+
+width: 100%;
+
+max-width: var(--max-w);
+
+margin-inline: auto;
+
+aspect-ratio: 1 / 1;
+
+background: var(--warm-cream);
+
+border-radius: 20px;
+
+overflow: hidden;
+
+position: relative;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+}
+
+
+
+.hero-image-wrap img {
+
+width: 100%;
+
+height: 100%;
+
+object-fit: cover;
+
+display: block;
+
+}
+
+
+
+.hero-image-placeholder {
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+gap: 0.6rem;
+
+color: rgba(27, 42, 74, 0.25);
+
+font-size: 0.8rem;
+
+letter-spacing: 0.05em;
+
+text-transform: uppercase;
+
+}
+
+
+
+.hero-image-placeholder svg {
+
+opacity: 0.3;
+
+}
+
+
+
+/* ── FREE DOWNLOAD ───────────────────────────────────────────── */
+
+
+
+#download {
+
+background: var(--warm-cream);
+
+}
+
+
+
+#download h2 {
+
+font-family: var(--heading-font);
+
+font-size: clamp(1.55rem, 5.5vw, 2.1rem);
+
+font-weight: 600;
+
+color: var(--alpine-navy);
+
+line-height: 1.2;
+
+margin-bottom: 1rem;
+
+}
+
+
+
+#download .download-desc {
+
+font-size: 0.97rem;
+
+color: rgba(27, 42, 74, 0.65);
+
+line-height: 1.7;
+
+margin-bottom: 2rem;
+
+}
+
+
+
+.form-group {
+
+margin-bottom: 0.9rem;
+
+}
+
+
+
+.form-group label {
+
+display: block;
+
+font-size: 0.75rem;
+
+font-weight: 500;
+
+letter-spacing: 0.08em;
+
+text-transform: uppercase;
+
+color: rgba(27, 42, 74, 0.5);
+
+margin-bottom: 0.4rem;
+
+}
+
+
+
+.form-group input {
+
+width: 100%;
+
+padding: 0.8rem 1rem;
+
+background: var(--cloud-white);
+
+border: 1px solid rgba(27, 42, 74, 0.12);
+
+border-radius: 10px;
+
+font-family: var(--body-font);
+
+font-size: 1rem;
+
+color: var(--alpine-navy);
+
+outline: none;
+
+transition: border-color 0.2s ease;
+
+}
+
+
+
+.form-group input:focus {
+
+border-color: var(--meadow-green);
+
+}
+
+
+
+.form-group input::placeholder {
+
+color: rgba(27, 42, 74, 0.28);
+
+}
+
+
+
+.submit-btn {
+
+width: 100%;
+
+margin-top: 0.4rem;
+
+padding: 0.95rem 1.5rem;
+
+background: var(--alpine-navy);
+
+color: var(--cloud-white);
+
+border: none;
+
+border-radius: 10px;
+
+font-family: var(--body-font);
+
+font-size: 1rem;
+
+font-weight: 500;
+
+letter-spacing: 0.01em;
+
+cursor: pointer;
+
+transition: background 0.2s ease, transform 0.1s ease;
+
+}
+
+
+
+.submit-btn:hover { background: #253d6b; }
+
+.submit-btn:active { transform: scale(0.98); }
+
+
+
+.form-note {
+
+margin-top: 0.85rem;
+
+font-size: 0.8rem;
+
+color: rgba(27, 42, 74, 0.38);
+
+text-align: center;
+
+font-style: italic;
+
+}
+
+.checkbox-group {
+
+display: flex;
+
+align-items: flex-start;
+
+gap: 0.6rem;
+
+margin-bottom: 0.75rem;
+
+}
+
+.checkbox-group input[type="checkbox"] {
+
+flex-shrink: 0;
+
+width: 18px;
+
+height: 18px;
+
+margin-top: 0.15rem;
+
+accent-color: var(--meadow-green);
+
+cursor: pointer;
+
+}
+
+.checkbox-group label {
+
+font-size: 0.83rem;
+
+color: rgba(27, 42, 74, 0.65);
+
+line-height: 1.45;
+
+cursor: pointer;
+
+}
+
+.submit-btn:disabled {
+
+background: rgba(27, 42, 74, 0.25);
+
+cursor: not-allowed;
+
+transform: none;
+
+}
+
+
+
+/* ── UPSELL ──────────────────────────────────────────────────── */
+
+
+
+#upsell {
+
+background: var(--alpine-navy);
+
+}
+
+
+
+.upsell-price-headline {
+
+font-family: 'Playfair Display', serif;
+
+font-size: clamp(1.5rem, 5vw, 1.75rem);
+
+font-weight: 700;
+
+color: var(--sunset-gold);
+
+line-height: 1.2;
+
+margin-bottom: 1rem;
+
+}
+
+#upsell h2 {
+
+font-family: var(--heading-font);
+
+font-size: clamp(1.55rem, 5.5vw, 2.1rem);
+
+font-weight: 600;
+
+color: var(--cloud-white);
+
+line-height: 1.2;
+
+margin-bottom: 1rem;
+
+}
+
+
+
+#upsell .upsell-desc {
+
+font-size: 0.95rem;
+
+color: rgba(250, 248, 243, 0.6);
+
+line-height: 1.75;
+
+margin-bottom: 2rem;
+
+}
+
+
+
+.upsell-buttons {
+
+display: flex;
+
+flex-direction: row;
+
+gap: 0.75rem;
+
+}
+
+
+
+.upsell-btn {
+
+flex: 1;
+
+padding: 0.9rem 0.75rem;
+
+border: none;
+
+border-radius: 10px;
+
+font-family: var(--body-font);
+
+font-size: 0.92rem;
+
+font-weight: 500;
+
+text-align: center;
+
+text-decoration: none;
+
+cursor: pointer;
+
+display: inline-flex;
+
+align-items: center;
+
+justify-content: center;
+
+line-height: 1.3;
+
+transition: filter 0.2s ease, transform 0.1s ease;
+
+}
+
+
+
+.upsell-btn:hover { filter: brightness(1.08); }
+
+.upsell-btn:active { transform: scale(0.97); }
+
+
+
+.btn-green {
+
+background: var(--meadow-green);
+
+color: var(--cloud-white);
+
+}
+
+
+
+.btn-gold {
+
+background: var(--sunset-gold);
+
+color: var(--alpine-navy);
+
+}
+
+
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+
+
+
+footer {
+
+background: var(--cloud-white);
+
+padding: 2.5rem 1.5rem;
+
+text-align: center;
+
+font-size: 0.77rem;
+
+color: rgba(27, 42, 74, 0.3);
+
+letter-spacing: 0.02em;
+
+}
+
+.footer-links {
+
+margin-top: 0.6rem;
+
+display: flex;
+
+justify-content: center;
+
+gap: 1.5rem;
+
+}
+
+.footer-links a {
+
+font-size: 0.75rem;
+
+color: rgba(27, 42, 74, 0.35);
+
+text-decoration: none;
+
+letter-spacing: 0.04em;
+
+transition: color 0.2s ease;
+
+}
+
+.footer-links a:hover {
+
+color: rgba(27, 42, 74, 0.65);
+
+}
+
+</style>
+
+</head>
+
+<body style="overflow: hidden;">
+
+
+
+<!-- ── PARENTAL GATE ── -->
+
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-prompt">
+
+<div class="gate-inner">
+
+<img src="logo.png" alt="Banjo the Wild Horse" class="gate-logo" />
+
+<p class="gate-brand">Banjo the Wild Horse</p>
+
+<p class="gate-compliance">For Grown-Ups Only</p>
+
+<p class="gate-prompt" id="gate-prompt">To continue, please confirm your birth year.</p>
+
+
+
+<select id="birth-year" name="birth-year" aria-label="Birth year">
+
+<option value="" disabled selected>Select Year</option>
+
+</select>
+
+
+
+<p id="gate-error" aria-live="polite"></p>
+
+
+
+<button class="gate-btn" id="gate-submit">Continue</button>
+
+</div>
+
+</div>
+
+
+
+<!-- ── MAIN CONTENT ── -->
+
+<div id="content" aria-hidden="true">
+
+
+
+<!-- HERO -->
+
+<section class="section" id="hero">
+
+<div class="inner">
+
+<img src="logo.png" alt="Banjo the Wild Horse" class="hero-logo" />
+
+<span class="hero-label">Banjo the Wild Horse</span>
+
+<h1>A Free Calm&#8209;Down Activity&nbsp;for Bedtime.</h1>
+
+<p class="hero-sub">A bedtime breathing exercise from the Alpine Meadow</p>
+
+</div>
+
+<div class="inner">
+
+<div class="hero-image-wrap" id="hero-image">
+
+<img src="illustration.png" alt="Banjo the Wild Horse illustration" />
+
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- FREE DOWNLOAD -->
+
+<section class="section" id="download">
+
+<div class="inner">
+
+<h2>Get Your Free Breathing Sheet.</h2>
+
+<p class="download-desc">A printable Mountain Breathing activity: trace the mountain path with your child while they breathe in and out. Takes 5 minutes, no prep needed.</p>
+
+<form action="#" method="POST">
+
+<div class="form-group">
+
+<label for="first-name">First name</label>
+
+<input type="text" id="first-name" name="first_name" placeholder="Your first name" autocomplete="given-name" required />
+
+</div>
+
+<div class="form-group">
+
+<label for="email">Email address</label>
+
+<input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+
+</div>
+
+<div class="checkbox-group">
+
+<input type="checkbox" id="tos" name="tos" required />
+
+<label for="tos">I agree to the <a href="#" style="color:var(--meadow-green);">Terms of Service and Privacy Policy</a>.</label>
+
+</div>
+
+<div class="checkbox-group">
+
+<input type="checkbox" id="marketing" name="marketing" />
+
+<label for="marketing" style="font-family:'Lato',sans-serif;font-size:11pt;color:#1B2A4A;">Yes! I want a calmer home. Add me to Banjo's VIP Herd for new episodes and exclusive free tools for the family.</label>
+
+</div>
+
+<button type="submit" class="submit-btn" id="submit-btn" disabled>Send Me the Free Sheet</button>
+
+<p class="form-note">No spam. Just calm.</p>
+
+</form>
+
+</div>
+
+</section>
+
+
+
+<!-- UPSELL -->
+
+<section class="section" id="upsell">
+
+<div class="inner">
+
+<p class="upsell-price-headline">Get the Full 20-Page Kit for only $4</p>
+
+<h2>Want all four activities?</h2>
+
+<p class="upsell-desc">The full 20-page Bedtime Calm-Down Kit includes 4 signature activities from The Wild Toolkit: Mountain Breaths, the Meadow Senses Walk, a Feelings Weather Map, and Grounding Stones. Plus a Parent Cheat Sheet on the science of calm, a 14-night tracker, and a Wild Toolkit Certificate. Designed for ages 3–8.</p>
+
+<a href="https://gumroad.com/PLACEHOLDER" class="upsell-btn btn-gold" style="display:flex;width:100%;" target="_blank" rel="noopener noreferrer">Buy the Full Kit</a>
+
+</div>
+
+</section>
+
+
+
+<!-- FOOTER -->
+
+<footer>
+
+&copy; 2026 Solumi&egrave;re Studio. All rights reserved.
+
+<div class="footer-links">
+
+<a href="/privacy">Privacy Policy</a>
+
+<a href="/terms">Terms of Service</a>
+
+</div>
+
+</footer>
+
+
+
+</div>
+
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // ── BIRTH YEAR DROPDOWN ──
+  const sel = document.getElementById('birth-year');
+  for (let y = 2026; y >= 1920; y--) {
+    const o = document.createElement('option');
+    o.value = y;
+    o.textContent = y;
+    sel.appendChild(o);
+  }
+
+  // ── GATE LOGIC ──
+  const gate = document.getElementById('gate');
+  const content = document.getElementById('content');
+  const errEl = document.getElementById('gate-error');
+  const gateBtn = document.getElementById('gate-submit');
+
+  function dismissGate() {
+    gate.classList.add('dismissed');
+    content.removeAttribute('aria-hidden');
+    content.classList.add('visible');
+    document.body.style.overflow = '';
+    window.scrollTo(0, 0);
+  }
+
+  gateBtn.addEventListener('click', function() {
+    const year = parseInt(sel.value, 10);
+    if (!year) {
+      errEl.textContent = 'Please select your birth year.';
+      return;
+    }
+    if (year >= 2009) {
+      errEl.textContent = 'Sorry! This area is for grown-ups only.';
+      return;
+    }
+    errEl.textContent = '';
+    dismissGate();
+  });
+
+  sel.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') gateBtn.click();
+  });
+
+  // ── CHECKBOX / SUBMIT BUTTON ──
+  const tosCheckbox = document.getElementById('tos');
+  const submitBtn = document.getElementById('submit-btn');
+
+  submitBtn.disabled = true;
+
+  tosCheckbox.addEventListener('change', function() {
+    submitBtn.disabled = !this.checked;
+  });
+
+});
+
+</script>
+
+
+
+</body>
+
+</html>
